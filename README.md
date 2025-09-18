@@ -1,7 +1,7 @@
-# RnD_TaskSY_2025
+# RnD_TaskFY_2025
 
 
-## 🛠️ Media Club Tech Task Round
+## 🛠️ ECHOES Club Tech Task Round
 
 Welcome to the Tech Task Round for the ECHOES - The official Media Club of Thapar!
 
