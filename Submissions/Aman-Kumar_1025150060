@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aman Kumar - Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #3e2723;
+            background: linear-gradient(135deg, #f8f4f0 0%, #ede7dc 50%, #e0d4c7 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(62, 39, 35, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4e342e;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #8d6e63;
+            margin-right: 10px;
+        }    
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #3e2723;
+            font-weight: 600;
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8d6e63, #6d4c41);
+            border-radius: 20px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #5d4037;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #2e2e2e;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f0ea 100%);
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            color: #4e342e;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+            color: #5d4037;
+            font-weight: 500;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #8d6e63, #6d4c41);
+            color: white;
+            padding: 14px 32px;
+            border: 2px solid #6d4c41;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 1s ease 0.4s both;
+            font-size: 1.1rem;
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, #6d4c41, #5d4037);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(109, 76, 65, 0.4);
+        }
+
+        .section {
+            padding: 80px 0;
+            margin: 20px 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(62, 39, 35, 0.15);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        .section:nth-child(even) {
+            background: #fefcfa;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #3e2723;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #8d6e63, #6d4c41);
+            border-radius: 2px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, #624238 0%, #9f6452 100%);
+            color: #ffffff;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 2px solid #e0d0c4;
+            box-shadow: 0 4px 15px rgba(62, 39, 35, 0.1);
+        }
+
+        .skill-card:nth-child(2) {
+            background: linear-gradient(135deg, #7f4d3b 0%, #8b5c4c 100%);
+            color: white;
+            border-color: #6d4c41;
+        }
+
+        .skill-card:nth-child(3) {
+            background: linear-gradient(135deg, #6d4c41 0%, #9e6f60 100%);
+            color: white;
+            border-color: #5d4037;
+        }
+
+        .skill-card:nth-child(4) {
+            background: linear-gradient(135deg, #5d4037 0%, #7b534a 100%);
+            color: white;
+            border-color: #4e342e;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(62, 39, 35, 0.25);
+        }
+
+        .skill-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .skill-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .experience-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, #ffffff, #fefcfa);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(62, 39, 35, 0.12);
+            border-left: 5px solid #8d6e63;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(15px);
+            box-shadow: 0 15px 40px rgba(62, 39, 35, 0.2);
+            border-left-color: #6d4c41;
+        }
+
+        .timeline-item h3 {
+            color: #4e342e;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .timeline-item .company {
+            color: #5d4037;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-item p {
+            color: #3e2723;
+            line-height: 1.7;
+        }
+
+        .instagram-link {
+            color: #6d4c41;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .instagram-link:hover {
+            color: #4e342e;
+            text-decoration: underline;
+        }
+
+        .contact-info {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #8d6e63, #6d4c41);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 20px rgba(109, 76, 65, 0.3);
+            font-weight: 500;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(109, 76, 65, 0.4);
+            background: linear-gradient(135deg, #6d4c41, #5d4037);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #6d4c41, #5d4037);
+            color: #f5f0eb;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #8d6e63, #6d4c41);
+            transform-origin: left;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .section {
+                margin: 10px 0;
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+           <div class="logo">
+                <img src="dog-logo.jpg" alt="Aman Kumar">
+                <span>Aman Kumar</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="scrollToSection('home')" data-section="home">Home</a></li>
+                <li><a href="#skills" onclick="scrollToSection('skills')" data-section="skills">Skills</a></li>
+                <li><a href="#experience" onclick="scrollToSection('experience')" data-section="experience">Experience</a></li>
+                <li><a href="#contact" onclick="scrollToSection('contact')" data-section="contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Aman Kumar</h1>
+                <p>Student | Creator | Designer</p>
+                <a href="#contact" class="cta-button" onclick="scrollToSection('contact')">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="fade-in">My Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card fade-in">
+                    <i class="fas fa-users"></i>
+                    <h3>Leadership</h3>
+                    <p>Cabinet Member, School Vice Captain(Head Boy)- Head of School Clubs and Houses. Gained Experience in Teamwork, Team-Organization, Management and several other skills under Leadership domain in High School.</p>
+                </div>
+                <div class="skill-card fade-in">
+                    <i class="fas fa-microphone"></i>
+                    <h3>Public Speaking</h3>
+                    <p>Confident Presenter with ability to engage audiences and Deliver Impactful Messages. Participated in Inter-House Debate and Declamation Competitions, Securing 1st Positions. Delivering relevant Work related speaks to the School Board Members and Co-ordinating with the Team Members during School Days.</p>
+                </div>
+                <div class="skill-card fade-in">
+                    <i class="fas fa-video"></i>
+                    <h3>Content Creator</h3>
+                    <p>Specializing in Digital Content Creation, Social Media Strategy, and Brand Building.</p>
+                </div>
+                <div class="skill-card fade-in">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Design</h3>
+                    <p>Skilled in visual design, and creating compelling graphics that communicate effectively.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="fade-in">Work Experience</h2>
+            <div class="experience-timeline">
+                <div class="timeline-item fade-in">
+                    <h3>Content Creator</h3>
+                    <div class="company">Silverspoon.Youth</div>
+                    <p>Currently Designated as a Content Creator at Silverspoon.Youth- A student driven community for students, providing them knowledge and information about Financial literacy, Early to learn skills and much more.</p>
+                </div>
+                <div class="timeline-item fade-in">
+                    <h3>Creator & Founder</h3>
+                    <div class="company">Personal Brand - <a href="https://instagram.com/lifeworkofaman" target="_blank" class="instagram-link">@lifeworkofaman</a></div>
+                    <p>Founded and built personal Instagram page focused on lifestyle, work and motivational content. Growing organic following through real, high-quality content creation. Establishing personal brand identity and engaging with community through authentic storytelling and life experiences sharing.</p>
+                </div>
+                <div class="timeline-item fade-in">
+                    <h3>Cabinet Member</h3>
+                    <div class="company">School Vice Captain (Head Boy) during high school in St. Xavier's High School, Pkl.</div>
+                    <p>Representing the school clubs and houses. Managing the event structures and co-ordinating with the other cabinet members for easy run of various events. Briefing the school board on the current plans of the team and laying down various disciplines in coordination with other cabinet members.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="fade-in">Get In Touch</h2>
+            <div class="contact-info fade-in">
+                <p>Let's Connect</p>
+                <div class="contact-links">
+                    <a href="https://instagram.com/lifeworkofaman" target="_blank" class="contact-link">
+                        <i class="fab fa-instagram"></i>
+                        Instagram
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&to=lifeworkofaman@gmail.com" class="contact-link">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </a>
+                    <a href="https://www.linkedin.com/in/aman-kumar-63bbb0344/" target="_blank" class="contact-link">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Aman Kumar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const sectionPosition = section.offsetTop - headerHeight;
+            
+            const start = window.pageYOffset;
+            const distance = sectionPosition - start;
+            const duration = 1200;
+            let startTime = null;
+
+            function easeInOutCubic(t) {
+                return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+            }
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const run = easeInOutCubic(timeElapsed / duration) * distance;
+                window.scrollTo(0, start + run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+            requestAnimationFrame(animation);
+            
+            updateActiveNavigation(sectionId);
+            
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        function updateActiveNavigation(activeSection) {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === activeSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        function updateNavigationOnScroll() {
+            const sections = ['home', 'skills', 'experience', 'contact'];
+            const headerHeight = document.querySelector('header').offsetHeight;
+            
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                const sectionTop = section.offsetTop - headerHeight - 100;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                    updateActiveNavigation(sectionId);
+                }
+            });
+        }
+
+        function updateScrollProgress() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const totalHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = (window.pageYOffset / totalHeight) * 100;
+            scrollIndicator.style.transform = `scaleX(${progress / 100})`;
+        }
+
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            const windowHeight = window.innerHeight;
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        function updateHeader() {
+            const header = document.querySelector('header');
+            const scrollY = window.scrollY;
+            
+            if (scrollY > 50) {
+                header.style.background = 'rgba(250, 246, 242, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(93, 64, 55, 0.15)';
+            } else {
+                header.style.background = 'rgba(250, 246, 242, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(93, 64, 55, 0.1)';
+            }
+        }
+
+        function initSkillCards() {
+            const skillCards = document.querySelectorAll('.skill-card');
+            
+            skillCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-15px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        function initTimeline() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            timelineItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = 'translateX(20px)';
+                    item.style.boxShadow = '0 15px 40px rgba(93, 64, 55, 0.2)';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'translateX(0)';
+                    item.style.boxShadow = '0 5px 20px rgba(93, 64, 55, 0.1)';
+                });
+            });
+        }
+
+        function parallaxEffect() {
+            const hero = document.querySelector('.hero');
+            const scrollY = window.scrollY;
+            const rate = scrollY * -0.3;
+            
+            hero.style.transform = `translateY(${rate}px)`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initSkillCards();
+            initTimeline();
+            revealOnScroll();
+            updateNavigationOnScroll();
+            
+            window.addEventListener('scroll', () => {
+                revealOnScroll();
+                updateHeader();
+                parallaxEffect();
+                updateNavigationOnScroll();
+                updateScrollProgress();
+            });
+            
+            window.addEventListener('resize', () => {
+                const navLinks = document.getElementById('navLinks');
+                if (window.innerWidth > 768) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactLinks = document.querySelectorAll('.contact-link');
+            
+            contactLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.transform = 'translateY(-5px) scale(1.05)';
+                });
+                
+                link.addEventListener('mouseleave', () => {
+                    link.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero-content h1');
+            const originalText = heroTitle.textContent;
+            typeWriter(heroTitle, originalText, 150);
+        });
+    </script>
+</body>
+</html>
